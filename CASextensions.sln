@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CASextensions", "CASextensions.csproj", "{C612F0E4-D9CC-4A1C-ACB1-75F893DCE593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoPatcher", "..\..\MonoPatcher\MonoPatcher.csproj", "{91460F7B-9C23-4A43-AB52-95EAC8D52D93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoPatcher", "..\MonoPatcher\MonoPatcher\MonoPatcher.csproj", "{91460F7B-9C23-4A43-AB52-95EAC8D52D93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

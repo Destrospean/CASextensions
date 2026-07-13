@@ -29,23 +29,17 @@ namespace SDM_CASextension
             // Applies all patch attributes found in your mod's DLL. This should always be done in your plugin constructor, before most code is compiled.
             MonoPatcher.PatchAll();
         }
-        
     
         // CASMAKEUP STUFF - MASCARA, HEADS, SCALPS
         [TypePatch(typeof(CASMakeup))]
         public class IHopeIExplode : CASFacialBlendPanel
         {
-
-
             public IHopeIExplode(uint winHandle) : base(winHandle)
             {
-
             }
-
 
             public override void Init()
             {
-
                 CASMakeup swag = this as object as CASMakeup;
 
                 foreach (object effect in base.EffectList)
@@ -73,8 +67,6 @@ namespace SDM_CASextension
                 button.Click += OnButtonTabClick;
                 //mascara
 
-                
-
                 button = GetChildByID(258u, recursive: true) as Button;
                 button.Selected = CASMakeup.sCategory == BodyTypes.Blush;
                 button.Click += OnButtonTabClick;
@@ -97,8 +89,6 @@ namespace SDM_CASextension
                 button = GetChildByID(260u, recursive: true) as Button;
                 button.Selected = CASMakeup.sCategory == BodyTypes.CostumeMakeup;
                 button.Click += OnButtonTabClick;
-
-                
 
                 button = GetChildByID(215017952u, recursive: true) as Button;
                 button.Selected = Responder.Instance.CASModel.PropagateMakeUpStyles;
@@ -154,9 +144,7 @@ namespace SDM_CASextension
                 SetCategory(CASMakeup.sCategory);
             }
 
-
-
-            public enum ControlIDs : uint
+            public new enum ControlIDs : uint
             {
                 // Token: 0x0400305E RID: 12382
                 ItemThumbnailWindow = 32U,
@@ -221,14 +209,14 @@ namespace SDM_CASextension
             public void HideUnusedIcons()
             {
                 BodyTypes[] array = new BodyTypes[]
-                {
-                BodyTypes.EyeShadow,
-                BodyTypes.EyeLiner,
-                BodyTypes.Blush,
-                BodyTypes.Mascara,
-                BodyTypes.FirstFace,
-                BodyTypes.CostumeMakeup
-                };
+                    {
+                        BodyTypes.EyeShadow,
+                        BodyTypes.EyeLiner,
+                        BodyTypes.Blush,
+                        BodyTypes.Mascara,
+                        BodyTypes.FirstFace,
+                        BodyTypes.CostumeMakeup
+                    };
                 List<Button> list = new List<Button>();
                 ICASModel casmodel = Responder.Instance.CASModel;
                 foreach (BodyTypes bodyType in array)
@@ -363,10 +351,7 @@ namespace SDM_CASextension
 
                 swag.PopulatePresetsGrid(CASMakeup.sCategory, swag.GetWornPart(CASMakeup.sCategory), swag.mButtonFilter.Selected);
             }
-
-
         }
-
 
         //CASCLOTHINGCATEGORY - NOSERINGS, PET BODIES
         [TypePatch(typeof(CASClothingCategory))]
@@ -377,7 +362,6 @@ namespace SDM_CASextension
             {
                 mModel = Responder.Instance.CASModel;
             }
-
 
             public override void Init()
             {
@@ -483,11 +467,7 @@ namespace SDM_CASextension
                 Responder.Instance.StoreUI.OnFeaturedItemRemoveError += OnFeaturedItemRemoveErrorHandler;
                 base.Tick += OnTick;
             }
-
-
-
         }
-
 
         [TypePatch(typeof(CAPTackCollarSheet))]
         public class DogyTime : CAPTackCollarSheet
@@ -558,10 +538,6 @@ namespace SDM_CASextension
                 }
                 base.FadeTransitionFinished += this.OnFadeFinished;
             }
-
-
         }
-    
-    
     }
 }
