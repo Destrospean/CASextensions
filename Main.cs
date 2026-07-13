@@ -234,6 +234,7 @@ namespace SDM_CASextension
                 ButtonBlush,
                 // Token: 0x04003068 RID: 12392
                 ButtonLipstick,
+
                 ButtonMascara = 262,
                 // Token: 0x04003069 RID: 12393
                 ButtonCostume,
