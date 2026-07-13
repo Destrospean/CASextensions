@@ -293,7 +293,7 @@ namespace SDM_CASextension
                 }
             }
 
-            private void SetCategory(BodyTypes category)
+            void SetCategory(BodyTypes category)
             {
                 CASMakeup casMakeup = (CASMakeup)(object)this;
                 casMakeup.mWindowCostume.Visible = false;
