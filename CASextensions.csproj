@@ -12,7 +12,6 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <UseMSBuildEngine>False</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,65 +25,65 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MonoPatcher\MonoPatcher\MonoPatcher.csproj">
+    <ProjectReference Include="MonoPatcher\MonoPatcher\MonoPatcher.csproj">
       <Project>{91460F7B-9C23-4A43-AB52-95EAC8D52D93}</Project>
       <Name>MonoPatcher</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>libs\mscorlib.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\mscorlib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ScriptCore">
-      <HintPath>libs\ScriptCore_Pure.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\ScriptCore_Pure.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SimIFace">
-      <HintPath>libs\SimIFace.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\SimIFace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sims3GameplayObjects">
-      <HintPath>libs\Sims3GameplayObjects.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\Sims3GameplayObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sims3GameplaySystems">
-      <HintPath>libs\Sims3GameplaySystems.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\Sims3GameplaySystems.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sims3Metadata">
-      <HintPath>libs\Sims3MetaData.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\Sims3MetaData.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sims3StoreObjects">
-      <HintPath>libs\Sims3StoreObjects.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\Sims3StoreObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
-      <HintPath>libs\System.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\System.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>libs\System.Xml.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\System.Xml.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UI">
-      <HintPath>libs\UI.dll</HintPath>
+      <HintPath>MonoPatcher\libs\Sims3\UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

@@ -53,36 +53,31 @@ namespace SDM_CASextension
                 childByID.Visible = true;
                 for (uint i = 0; i < 2; i++)
                 {
-                    mButtons[(int)(UIntPtr)i] = childByID.GetChildByID(88908321 + i, true) as Button;
-                    mButtons[(int)(UIntPtr)i].Click += OnNavigationButtonClick;
+                    (mButtons[(int)(UIntPtr)i] = (Button)childByID.GetChildByID(88908321 + i, true)).Click += OnNavigationButtonClick;
                     mButtons[(int)(UIntPtr)i].FocusAcquired += OnNavigationFocusAcquired;
-                    mButtons[(int)(UIntPtr)i].MouseDown += OnNavigationButtonMouseDown;
                     mButtons[(int)(UIntPtr)i].FocusLost += OnNavigationFocusLost;
+                    mButtons[(int)(UIntPtr)i].MouseDown += OnNavigationButtonMouseDown;
                     mButtons[(int)(UIntPtr)i].Tag = mButtons[(int)(UIntPtr)i].TooltipText;
                     mButtons[(int)(UIntPtr)i].TooltipText = "";
-                    mButtonText[(int)(UIntPtr)i] = GetChildByID(88908305 + i, true) as Text;
+                    mButtonText[(int)(UIntPtr)i] = (Text)GetChildByID(88908305 + i, true);
                 }
                 mBaseColor = mButtonText[0].TextColor.ARGB;
-                mTextWindow = GetChildByID(88908304, true) as Window;
-                mTextWindow.EffectFinished += OnTextFadeFinished;
+                (mTextWindow = (Window)GetChildByID(88908304, true)).EffectFinished += OnTextFadeFinished;
                 foreach (object effect in mTextWindow.EffectList)
                 {
-                    mFadeEffect = effect as FadeEffect;
-                    if (mFadeEffect != null)
+                    if ((mFadeEffect = effect as FadeEffect) != null)
                     {
                         mFadeTime = mFadeEffect.Duration;
                         break;
                     }
                 }
-                mInputBlocker = GetChildByID(88908290, true);
-                mInputBlocker.Visible = false;
-                Window window = GetChildByID(88908289, true) as Window;
+                (mInputBlocker = GetChildByID(88908290, true)).Visible = false;
+                Window window = (Window)GetChildByID(88908289, true);
                 window.Visible = true;
                 window.EffectFinished += OnPanelGlideFinished;
                 foreach (object effect in window.EffectList)
                 {
-                    mGlideEffect = effect as GlideEffect;
-                    if (mGlideEffect != null)
+                    if ((mGlideEffect = effect as GlideEffect) != null)
                     {
                         mGlideTime = mGlideEffect.Duration;
                         break;
@@ -92,7 +87,7 @@ namespace SDM_CASextension
             }
         }
 
-        // CASCLOTHINGCATEGORY - NOSERINGS, PET BODIES
+        // CASCLOTHINGCATEGORY - NOSE RINGS, PET BODIES
         [TypePatch(typeof(CASClothingCategory))]
         public class CASClothingCategoryPatch : CASClothingCategory
         {
@@ -106,8 +101,7 @@ namespace SDM_CASextension
                 mAgeGenderFlags = mModel.Species | mModel.Age | mModel.Gender;
                 foreach (object effect in EffectList)
                 {
-                    mFadeEffect = effect as FadeEffect;
-                    if (mFadeEffect != null)
+                    if ((mFadeEffect = effect as FadeEffect) != null)
                     {
                         mFadeTime = mFadeEffect.Duration;
                         break;
@@ -116,85 +110,72 @@ namespace SDM_CASextension
                 mFading = true;
                 FadeTransitionFinished += OnFadeFinished;
                 mInvalidCASPart.Key = ResourceKey.kInvalidResourceKey;
-                mTrashButton = GetChildByID(98285829, true) as Button;
-                mSaveButton = GetChildByID(98285828, true) as Button;
-                mShareButton = GetChildByID(98291479, true) as Button;
-                mSortButton = GetChildByID(98291481, true) as Button;
-                mCategoryText = GetChildByID(98291457, true) as Text;
-                mDesignButton = GetChildByID(98291482, true) as Button;
+                mCategoryText = (Text)GetChildByID(98291457, true);
+                (mClothingTypesGrid = (ItemGrid)GetChildByID(98291489, true)).InternalGrid.DrawPastLastRow = false;
+                (mDesignButton = (Button)GetChildByID(98291482, true)).Click += OnDesignButtonClick;
+                (mSaveButton = (Button)GetChildByID(98285828, true)).Click += OnSaveButtonClick;
+                (mShareButton = (Button)GetChildByID(98291479, true)).Click += OnShareButtonClick;
+                (mSortButton = (Button)GetChildByID(98291481, true)).Click += OnSortButtonClick;
+                (mTrashButton = (Button)GetChildByID(98285829, true)).Click += OnTrashButtonClick;
+                mSaveButton.Enabled = false;
                 mShareButton.Enabled = false;
                 mTrashButton.Enabled = false;
-                mSaveButton.Enabled = false;
-                mClothingTypesGrid = GetChildByID(98291489, true) as ItemGrid;
-                mClothingTypesGrid.InternalGrid.DrawPastLastRow = false;
-                mTrashButton.Click += OnTrashButtonClick;
-                mSaveButton.Click += OnSaveButtonClick;
-                mShareButton.Click += OnShareButtonClick;
-                mSortButton.Click += OnSortButtonClick;
-                mDesignButton.Click += OnDesignButtonClick;
                 mShareButton.MouseMove += CASController.TriggerParentGlowEffect;
                 mShareButton.FocusLost += CASController.ReverseParentGlowEffect;
                 mTrashButton.MouseMove += CASController.TriggerParentGlowEffect;
                 mTrashButton.FocusLost += CASController.ReverseParentGlowEffect;
-                Button button = GetChildByID(98291478, true) as Button;
-                button.Click += OnButtonRandomizeClick;
-                mCategoryButtonHolder = GetChildByID(98291472, true) as Window;
-                mTopsButton = mCategoryButtonHolder.GetChildByID(98291473, true) as Button;
-                mTopsButton.Click += OnCategoryButtonClick;
-                mBottomsButton = mCategoryButtonHolder.GetChildByID(98291474, true) as Button;
-                mBottomsButton.Click += OnCategoryButtonClick;
-                mShoesButton = mCategoryButtonHolder.GetChildByID(98291475, true) as Button;
-                mShoesButton.Click += OnCategoryButtonClick;
-                mOutfitsButton = mCategoryButtonHolder.GetChildByID(98291476, true) as Button;
-                mOutfitsButton.Click += OnCategoryButtonClick;
-                mAccessoriesButton = mCategoryButtonHolder.GetChildByID(98291600, true) as Button;
-                mAccessoriesButton.Click += OnCategoryButtonClick;
-                mHorseBridlesButton = mCategoryButtonHolder.GetChildByID(98291483, true) as Button;
-                mHorseBridlesButton.Click += OnCategoryButtonClick;
-                mHorseSaddleButton = mCategoryButtonHolder.GetChildByID(98291484, true) as Button;
-                mHorseSaddleButton.Click += OnCategoryButtonClick;
+                ((Button)GetChildByID(98291478, true)).Click += OnButtonRandomizeClick;
+                (mAccessoriesButton = (Button)(mCategoryButtonHolder = (Window)GetChildByID(98291472, true)).GetChildByID(98291600, true)).Click += OnCategoryButtonClick;
+                (mBottomsButton = (Button)mCategoryButtonHolder.GetChildByID(98291474, true)).Click += OnCategoryButtonClick;
+                (mHorseBridlesButton = (Button)mCategoryButtonHolder.GetChildByID(98291483, true)).Click += OnCategoryButtonClick;
+                (mHorseSaddleButton = (Button)mCategoryButtonHolder.GetChildByID(98291484, true)).Click += OnCategoryButtonClick;
+                (mOutfitsButton = (Button)mCategoryButtonHolder.GetChildByID(98291476, true)).Click += OnCategoryButtonClick;
+                (mShoesButton = (Button)mCategoryButtonHolder.GetChildByID(98291475, true)).Click += OnCategoryButtonClick;
+                (mTopsButton = (Button)mCategoryButtonHolder.GetChildByID(98291473, true)).Click += OnCategoryButtonClick;
                 mPartsList = new ArrayList();
                 mPartPresetsList = new ArrayList();
                 if (mbIsHuman = mModel.Species == CASAgeGenderFlags.Human || mModel.Species == CASAgeGenderFlags.None)
                 {
-                    MultiDrawable multiDrawable = mAccessoriesButton.Drawable as MultiDrawable;
-                    IconDrawable iconDrawable = multiDrawable[1u] as IconDrawable;
-                    iconDrawable.Image = UIManager.LoadUIImage(ResourceKey.CreatePNGKey("cas_clothing_i_acc_r2", 0));
+                    ((IconDrawable)((MultiDrawable)mAccessoriesButton.Drawable)[1]).Image = UIManager.LoadUIImage(ResourceKey.CreatePNGKey("cas_clothing_i_acc_r2", 0));
                 }
-                mAccessoryCategories = new ArrayList();
                 if (mbIsHuman)
                 {
-                    mAccessoryCategories.Add(BodyTypes.Glasses);
-                    mAccessoryCategories.Add(BodyTypes.Earrings);
-                    mAccessoryCategories.Add(BodyTypes.NoseRing);
-                    mAccessoryCategories.Add(BodyTypes.LeftEarring);
-                    mAccessoryCategories.Add(BodyTypes.RightEarring);
-                    mAccessoryCategories.Add(BodyTypes.Necklace);
-                    mAccessoryCategories.Add(BodyTypes.Armband);
-                    mAccessoryCategories.Add(BodyTypes.Bracelet);
-                    mAccessoryCategories.Add(BodyTypes.Gloves);
-                    mAccessoryCategories.Add(BodyTypes.Ring);
-                    if (mModel.CurrentOccultType != OccultTypes.Mermaid || !mModel.HiddenInCAS)
+                    mAccessoryCategories = new ArrayList
+                        {
+                            BodyTypes.Glasses,
+                            BodyTypes.Earrings,
+                            BodyTypes.NoseRing,                                                                     // Added: Nose Rings
+                            BodyTypes.LeftEarring,
+                            BodyTypes.RightEarring,
+                            BodyTypes.Necklace,
+                            BodyTypes.Armband,
+                            BodyTypes.Bracelet,
+                            BodyTypes.Gloves,
+                            BodyTypes.Ring,
+                            BodyTypes.Socks,
+                            BodyTypes.Dental,
+                            BodyTypes.LeftGarter,
+                            BodyTypes.RightGarter,
+                            BodyTypes.BirthMark
+                        };
+                    if (mModel.CurrentOccultType == OccultTypes.Mermaid && mModel.HiddenInCAS)
                     {
-                        mAccessoryCategories.Add(BodyTypes.Socks);
+                        mAccessoryCategories.Remove(BodyTypes.Socks);
                     }
-                    mAccessoryCategories.Add(BodyTypes.Dental);
-                    mAccessoryCategories.Add(BodyTypes.LeftGarter);
-                    mAccessoryCategories.Add(BodyTypes.RightGarter);
-                    mAccessoryCategories.Add(BodyTypes.BirthMark);
                 }
                 else if (mModel.Species == CASAgeGenderFlags.Horse || mModel.Species == CASAgeGenderFlags.Dog || mModel.Species == CASAgeGenderFlags.LittleDog || mModel.Species == CASAgeGenderFlags.Cat)
                 {
-                    mAccessoryCategories.Add(BodyTypes.PetBreastCollar);
-                    mAccessoryCategories.Add(BodyTypes.PetBlanket);
-                    mAccessoryCategories.Add(BodyTypes.PetBody);
+                    mAccessoryCategories = new ArrayList
+                        {
+                            BodyTypes.PetBreastCollar,
+                            BodyTypes.PetBlanket,
+                            BodyTypes.PetBody                                                                       // Added: Pet Bodies
+                        };
                 }
-                mContentTypeFilter = CASPuck.GetContentTypeFilter();
-                if (mContentTypeFilter != null)
+                if ((mContentTypeFilter = CASPuck.GetContentTypeFilter()) != null)
                 {
                     mContentTypeFilter.Tag = mSortButton;
-                    WindowBase childByID = GetChildByID(98291488, true);
-                    CASPuck.SetContentFilterPosition(childByID);
+                    CASPuck.SetContentFilterPosition(GetChildByID(98291488, true));
                     mContentTypeFilter.FiltersChanged += PopulateTypesGrid;
                 }
                 mModel.UndoSelected += OnUndoRedo;
@@ -206,7 +187,7 @@ namespace SDM_CASextension
             }
         }
 
-        // CASMAKEUP STUFF - MASCARA, HEADS, SCALPS
+        // CASMAKEUP STUFF - MASCARA, FACES, SCALPS
         [TypePatch(typeof(CASMakeup))]
         public class CASFacialBlendPanelPatch : CASFacialBlendPanel
         {
@@ -281,7 +262,7 @@ namespace SDM_CASextension
                 CASMakeup casMakeup = (CASMakeup)(object)this;
                 casMakeup.mWindowCostume.Visible = false;
                 casMakeup.mWindowMakeup.Visible = false;
-                CASFacialDetails casfacialDetails = CASFacialDetails.gSingleton;
+                CASFacialDetails casFacialDetails = CASFacialDetails.gSingleton;
                 switch (category)
                 {
                     case BodyTypes.FirstFace:
@@ -292,15 +273,15 @@ namespace SDM_CASextension
                     case BodyTypes.EyeLiner:
                     case BodyTypes.Blush:
                         casMakeup.mWindowMakeup.Visible = true;
-                        casfacialDetails.SetLongPanel(true);
+                        casFacialDetails.SetLongPanel(true);
                         Tick -= casMakeup.OnTick;
                         casMakeup.mButtonCostumeFilter.Selected = false;
                         casMakeup.mContentTypeFilter.Visible = false;
                         break;
                     case BodyTypes.CostumeMakeup:
                         casMakeup.mWindowCostume.Visible = true;
-                        casfacialDetails.SetLongPanel(false);
-                        casfacialDetails.SetShortPanelHeight(570);
+                        casFacialDetails.SetLongPanel(false);
+                        casFacialDetails.SetShortPanelHeight(570);
                         if (casMakeup.GetWornPart(category).Key != casMakeup.kInvalidCASPart.Key)
                         {
                             casMakeup.mButtonDesignCostume.Enabled = true;
@@ -353,7 +334,7 @@ namespace SDM_CASextension
                             id = CASMakeup.ControlIDs.ButtonBlush;
                             break;
                     }
-                    Button button = GetChildByID((uint)id, true) as Button;
+                    Button button = (Button)GetChildByID((uint)id, true);
                     if (visibleCASParts.Count > 0)
                     {
                         button.Visible = true;
@@ -387,8 +368,7 @@ namespace SDM_CASextension
                 CASMakeup casMakeup = (CASMakeup)(object)this;
                 foreach (object effect in EffectList)
                 {
-                    casMakeup.mFadeEffect = effect as FadeEffect;
-                    if (casMakeup.mFadeEffect != null)
+                    if ((casMakeup.mFadeEffect = effect as FadeEffect) != null)
                     {
                         casMakeup.mFadeTime = casMakeup.mFadeEffect.Duration;
                         break;
@@ -397,41 +377,24 @@ namespace SDM_CASextension
                 FadeTransitionFinished += casMakeup.OnFadeFinished;
                 Init();
                 CASMakeup.sCategory = BodyTypes.EyeShadow;
-                Button button = GetChildByID(256, true) as Button;
+                Button button = (Button)GetChildByID(256, true);
                 button.Selected = CASMakeup.sCategory == BodyTypes.EyeShadow;
                 button.Click += OnButtonTabClick;
-                button = GetChildByID(257, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.EyeLiner;
+                (button = (Button)GetChildByID(257, true)).Selected = CASMakeup.sCategory == BodyTypes.EyeLiner;
                 button.Click += OnButtonTabClick;
-
-                // Mascara
-                button = GetChildByID(262, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.Mascara;
+                (button = (Button)GetChildByID(262, true)).Selected = CASMakeup.sCategory == BodyTypes.Mascara;     // Added: Mascara
                 button.Click += OnButtonTabClick;
-
-                button = GetChildByID(258, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.Blush;
+                (button = (Button)GetChildByID(258, true)).Selected = CASMakeup.sCategory == BodyTypes.Blush;
                 button.Click += OnButtonTabClick;
-                button = GetChildByID(259, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.FirstFace;
+                (button = (Button)GetChildByID(259, true)).Selected = CASMakeup.sCategory == BodyTypes.FirstFace;
                 button.Click += OnButtonTabClick;
-
-                // Heads
-                button = GetChildByID(263, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.Face;
+                (button = (Button)GetChildByID(263, true)).Selected = CASMakeup.sCategory == BodyTypes.Face;        // Added: Faces
                 button.Click += OnButtonTabClick;
-
-                // Scalps
-                button = GetChildByID(264, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.Scalp;
+                (button = (Button)GetChildByID(264, true)).Selected = CASMakeup.sCategory == BodyTypes.Scalp;       // Added: Scalps
                 button.Click += OnButtonTabClick;
-
-                button = GetChildByID(260, true) as Button;
-                button.Selected = CASMakeup.sCategory == BodyTypes.CostumeMakeup;
+                (button = (Button)GetChildByID(260, true)).Selected = CASMakeup.sCategory == BodyTypes.CostumeMakeup;
                 button.Click += OnButtonTabClick;
-
-                button = GetChildByID(215017952, true) as Button;
-                button.Selected = Responder.Instance.CASModel.PropagateMakeUpStyles;
+                (button = (Button)GetChildByID(215017952, true)).Selected = Responder.Instance.CASModel.PropagateMakeUpStyles;
                 Responder.Instance.CASModel.PropagateMakeUpStyles = button.Selected;
                 if (button.Selected)
                 {
@@ -442,45 +405,30 @@ namespace SDM_CASextension
                     button.TooltipText = Responder.Instance.LocalizationModel.LocalizeString("Ui/Caption/CAS:PerCategoryMakeup");
                 }
                 button.Click += casMakeup.OnLockCategoryButtonClick;
-                casMakeup.mWindowMakeup = GetChildByID(4096, true) as Window;
-                casMakeup.mGridMakeupParts = casMakeup.mWindowMakeup.GetChildByID(4097, true) as ItemGrid;
-                casMakeup.mGridMakeupPresets = casMakeup.mWindowMakeup.GetChildByID(4098, true) as ItemGrid;
-                casMakeup.mButtonFilter = casMakeup.mWindowMakeup.GetChildByID(4102, true) as Button;
-                casMakeup.mButtonFilter.Click += casMakeup.OnButtonFilterClick;
-                casMakeup.mWindowCostume = GetChildByID(8192, true) as Window;
-                casMakeup.mGridCostumeParts = casMakeup.mWindowCostume.GetChildByID(8193, true) as ItemGrid;
-                casMakeup.mButtonCostumeFilter = casMakeup.mWindowCostume.GetChildByID(8198, true) as Button;
-                casMakeup.mButtonCostumeFilter.Click += casMakeup.OnButtonCostumeFilterClick;
-                casMakeup.mOpacitySlider = GetChildByID(158168880, true) as Slider;
-                casMakeup.mOpacitySlider.MouseUp += casMakeup.OnOpacitySliderMouseUp;
+                (casMakeup.mGridMakeupParts = (ItemGrid)(casMakeup.mWindowMakeup = (Window)GetChildByID(4096, true)).GetChildByID(4097, true)).ItemClicked += casMakeup.OnGridPartsClick;
+                (casMakeup.mGridMakeupPresets = (ItemGrid)casMakeup.mWindowMakeup.GetChildByID(4098, true)).ItemClicked += casMakeup.OnGridPresetsClick;
+                (casMakeup.mButtonFilter = (Button)casMakeup.mWindowMakeup.GetChildByID(4102, true)).Click += casMakeup.OnButtonFilterClick;
+                (casMakeup.mButtonCostumeFilter = (Button)(casMakeup.mWindowCostume = (Window)GetChildByID(8192, true)).GetChildByID(8198, true)).Click += casMakeup.OnButtonCostumeFilterClick;
+                casMakeup.mGridCostumeParts = (ItemGrid)casMakeup.mWindowCostume.GetChildByID(8193, true);
+                (casMakeup.mOpacitySlider = (Slider)GetChildByID(158168880, true)).MouseUp += casMakeup.OnOpacitySliderMouseUp;
                 casMakeup.mOpacitySlider.SliderValueChange += casMakeup.OnOpacitySliderChange;
-                casMakeup.mGridMakeupParts.ItemClicked += casMakeup.OnGridPartsClick;
-                casMakeup.mGridMakeupPresets.ItemClicked += casMakeup.OnGridPresetsClick;
-                casMakeup.mContentTypeFilter = CASPuck.GetContentTypeFilter();
-                if (casMakeup.mContentTypeFilter != null)
+                if ((casMakeup.mContentTypeFilter = CASPuck.GetContentTypeFilter()) != null)
                 {
                     casMakeup.mContentTypeFilter.Tag = casMakeup.mButtonCostumeFilter;
-                    WindowBase childByID = GetChildByID(8199, true);
-                    CASPuck.SetContentFilterPosition(childByID);
+                    CASPuck.SetContentFilterPosition(GetChildByID(8199, true));
                     casMakeup.mContentTypeFilter.FiltersChanged += casMakeup.OnFilterChanged;
                 }
-                casMakeup.mButtonColor = casMakeup.mWindowMakeup.GetChildByID(4101, true) as Button;
-                casMakeup.mButtonColor.Click += casMakeup.OnButtonDesignClick;
-                casMakeup.mButtonShare = casMakeup.mWindowMakeup.GetChildByID(4100, true) as Button;
-                casMakeup.mButtonShare.Click += casMakeup.OnButtonShareClick;
-                casMakeup.mButtonDelete = casMakeup.mWindowMakeup.GetChildByID(4099, true) as Button;
-                casMakeup.mButtonDelete.Click += casMakeup.OnButtonDeleteClick;
-                casMakeup.mButtonDeleteCostume = GetChildByID(8195, true) as Button;
-                casMakeup.mButtonDeleteCostume.Click += casMakeup.OnButtonDeleteClick;
-                casMakeup.mButtonShareCostume = GetChildByID(8196, true) as Button;
-                casMakeup.mButtonShareCostume.Click += casMakeup.OnButtonShareClick;
-                casMakeup.mButtonDesignCostume = GetChildByID(8197, true) as Button;
-                casMakeup.mButtonDesignCostume.Click += casMakeup.OnButtonDesignClick;
-                ICASModel cASModel = Responder.Instance.CASModel;
-                cASModel.OnCASPartAdded += casMakeup.OnPartAdded;
-                cASModel.OnCASPartRemoved += casMakeup.OnPartRemoved;
-                cASModel.UndoSelected += casMakeup.OnUndoRedo;
-                cASModel.RedoSelected += casMakeup.OnUndoRedo;
+                (casMakeup.mButtonColor = (Button)casMakeup.mWindowMakeup.GetChildByID(4101, true)).Click += casMakeup.OnButtonDesignClick;
+                (casMakeup.mButtonShare = (Button)casMakeup.mWindowMakeup.GetChildByID(4100, true)).Click += casMakeup.OnButtonShareClick;
+                (casMakeup.mButtonDelete = (Button)casMakeup.mWindowMakeup.GetChildByID(4099, true)).Click += casMakeup.OnButtonDeleteClick;
+                (casMakeup.mButtonDeleteCostume = (Button)GetChildByID(8195, true)).Click += casMakeup.OnButtonDeleteClick;
+                (casMakeup.mButtonShareCostume = (Button)GetChildByID(8196, true)).Click += casMakeup.OnButtonShareClick;
+                (casMakeup.mButtonDesignCostume = (Button)GetChildByID(8197, true)).Click += casMakeup.OnButtonDesignClick;
+                ICASModel casModel = Responder.Instance.CASModel;
+                casModel.OnCASPartAdded += casMakeup.OnPartAdded;
+                casModel.OnCASPartRemoved += casMakeup.OnPartRemoved;
+                casModel.UndoSelected += casMakeup.OnUndoRedo;
+                casModel.RedoSelected += casMakeup.OnUndoRedo;
                 SetCategory(CASMakeup.sCategory);
             }
 
@@ -511,8 +459,6 @@ namespace SDM_CASextension
                         return;
                     case 264:
                         SetCategory(BodyTypes.Scalp);
-                        return;
-                    default:
                         return;
                 }
             }

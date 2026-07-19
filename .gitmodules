@@ -1,0 +1,3 @@
+[submodule "MonoPatcher"]
+	path = MonoPatcher
+	url = git@github.com:LazyDuchess/MonoPatcher.git
